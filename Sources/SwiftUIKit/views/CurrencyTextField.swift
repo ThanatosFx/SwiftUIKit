@@ -324,13 +324,13 @@ public struct CurrencyTextField: UIViewRepresentable {
 fileprivate extension String {
     
     var numberOfDecimalPoints: Int {
-        let tok = components(separatedBy:".")
+        let tok = components(separatedBy:",")
         return tok.count - 1
     }
     
     // all numbers including fractions
     var decimals: String {
-        return components(separatedBy: CharacterSet(charactersIn: "0123456789.").inverted).joined()
+        return components(separatedBy: CharacterSet(charactersIn: "0123456789,").inverted).joined()
     }
     
     // just numbers
@@ -339,11 +339,11 @@ fileprivate extension String {
     }
     
     var integers: String {
-        return decimals.components(separatedBy: ".")[0]
+        return decimals.components(separatedBy: ",")[0]
     }
     
     var fractions: String? {
-        let split = decimals.components(separatedBy: ".")
+        let split = decimals.components(separatedBy: ",")
         if split.count == 2 {
             return split[1]
         }
@@ -368,6 +368,7 @@ fileprivate extension String {
         }
         
         let formatter = Formatter.currency
+        formatter.locale = Locale(identifier: "in_ID")
         let fractionDigits = fractions?.count ?? 0
         // if has fractions, show fractions
         if fractions != nil {
@@ -403,5 +404,11 @@ fileprivate extension NumberFormatter {
     convenience init(numberStyle: NumberFormatter.Style) {
         self.init()
         self.numberStyle = numberStyle
+    }
+}
+
+struct CurrencyTextField_Previews: PreviewProvider {
+    static var previews: some View {
+        /*@START_MENU_TOKEN@*/Text("Hello, World!")/*@END_MENU_TOKEN@*/
     }
 }
