@@ -278,7 +278,7 @@ public struct CurrencyTextField: UIViewRepresentable {
             }
             
             // limits integers length
-            if newValue.integers.count > 9 {
+            if newValue.integers.count > 10 {
                 return false
             }
             
